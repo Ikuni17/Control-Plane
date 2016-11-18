@@ -24,7 +24,8 @@ if __name__ == '__main__':
     
     #create routers and routing tables for connected clients (subnets)
     router_a_rt_tbl_D = {1: {0: 1}} # packet to host 1 through interface 0 for cost 1
-    router_a = network.Router(name='A', 
+    #router_a_rt_tbl_D = {1: {0: 1}, 2: {1:3}, 3:{0:1}, 4:{2:3}}
+    router_a = network.Router(name='A',
                               intf_cost_L=[1,1], 
                               rt_tbl_D = router_a_rt_tbl_D, 
                               max_queue_size=router_queue_size)

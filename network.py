@@ -212,12 +212,43 @@ class Router:
         
     ## Print routing table
     def print_routes(self):
+        # Tables are structured as {Destination : {Interface : Cost}}
         print('%s: routing table' % self)
-        #TODO: print the routes as a two dimensional table for easy inspection
-        # Currently the function just prints the route table as a dictionary
-        print(self.rt_tbl_D)
-        
-                
+        print('{:>16}'.format("Cost To:"))
+        # Print all destinations in a row
+        print('{:>8}'.format(""), end="")
+        count = -1
+        for destination in self.rt_tbl_D:
+            #print('{:<3}'.format(destination), end=" ")
+            print(destination, end=" ")
+            count = count + 1
+        print()
+        print("From:", end=" ")
+        count2=0
+        for key in self.rt_tbl_D:
+            for sub_key in self.rt_tbl_D[key]:
+                if count2 is 0:
+                    print(str(sub_key) + " " + str(self.rt_tbl_D[key][sub_key]), end=" ")
+                    for i in range(count):
+                        print("~", end=" ")
+                    print()
+                    count = count - 1
+                    count2 = count2 + 1
+                else:
+                    print('{:>6}'.format(""), end="")
+                    print(sub_key, end=" ")
+                    for i in range(count2):
+                        print("~", end=" ")
+                    print(self.rt_tbl_D[key][sub_key], end=" ")
+                    for i in range(count):
+                        print("~", end=" ")
+                    print()
+                    count = count - 1
+                    count2 = count2 + 1
+
+
+        print()
+
     ## thread target for the host to keep forwarding data
     def run(self):
         print (threading.currentThread().getName() + ': Starting')
