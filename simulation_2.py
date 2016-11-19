@@ -88,6 +88,7 @@ if __name__ == '__main__':
         if str(type(obj)) == "<class 'network_2.Router'>":
             obj.print_routes()
 
+    print()
     # join all threads
     for o in object_L:
         o.stop = True

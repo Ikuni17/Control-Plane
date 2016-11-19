@@ -220,41 +220,45 @@ class Router:
     ## Print routing table
     def print_routes(self):
         # Tables are structured as {Destination : {Interface : Cost}}
+        # First index is interface, then each interface has a list of costs
+        rows = [[]for j in range(len(self.intf_L))]
+        # Create a list of costs for each interface
+        for keys in self.rt_tbl_D:
+            for sub_keys in self.rt_tbl_D[keys]:
+                rows[sub_keys].append(self.rt_tbl_D[keys][sub_keys])
         print('%s: routing table' % self)
         print('{:>16}'.format("Cost To:"))
-        # Print all destinations in a row
+        #Print all destinations in a row
         print('{:>8}'.format(""), end="")
         count = -1
         for destination in self.rt_tbl_D:
-            #print('{:<3}'.format(destination), end=" ")
             print(destination, end=" ")
-            count = count + 1
+            count+= 1
         print()
         print("From:", end=" ")
-        count2=0
-        for key in self.rt_tbl_D:
-            for sub_key in self.rt_tbl_D[key]:
-                if count2 is 0:
-                    print(str(sub_key) + " " + str(self.rt_tbl_D[key][sub_key]), end=" ")
-                    for i in range(count):
-                        print("~", end=" ")
-                    print()
-                    count = count - 1
-                    count2 = count2 + 1
-                else:
-                    print('{:>6}'.format(""), end="")
-                    print(sub_key, end=" ")
-                    for i in range(count2):
-                        print("~", end=" ")
-                    print(self.rt_tbl_D[key][sub_key], end=" ")
-                    for i in range(count):
-                        print("~", end=" ")
-                    print()
-                    count = count - 1
-                    count2 = count2 + 1
+        # Print the information in rows
+        for interface in range (len(rows)):
+            # Print the interface number at the beginning of the row
+            print(interface, end=" ")
+            # num_char keeps track of the amount of characters printed in a given row
+            num_char = 0
+            # Add leading characters if necessary
+            while num_char < interface:
+                if num_char < count:
+                    print("-",end=" ")
+                num_char+=1
+            # Print the costs that were added to rows
+            for m in range (len(rows[interface])):
+                print(rows[interface][m],end=" ")
+                num_char+=1
+            # Add trailing characters if necessary
+            while num_char <= count:
+                print("-",end=" ")
+                num_char+=1
+            # Go to next line and add whitespace
+            print()
+            print('{:>6}'.format(""), end="")
 
-
-        print()
 
     ## thread target for the host to keep forwarding data
     def run(self):
