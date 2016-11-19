@@ -1,3 +1,4 @@
+C:\Python34\python.exe "C:/Users/Brad/OneDrive/School/CSCI-466 Networks/Control Plane/simulation_2.py"
 Created link Link Host_1-0 - Router_A-0
 Created link Link Host_2-0 - Router_A-1
 Created link Link Router_A-2 - Router_B-0
@@ -13,62 +14,198 @@ Router_B: Starting
 Router_C: Starting
 Router_D: Starting
 Network: Starting
+Router_A: sending routing update "000002000011" from interface 2
+Router_A: sending routing update "000002000011" from interface 3
+Link Router_A-2 - Router_B-0: transmitting packet "000002000011" on Router_A 2 -> Router_B, 0
+Router_B: sending routing update "000002000012" from interface 1
+Router_A: sending routing update "000002000021" from interface 2
+Link Router_A-3 - Router_C-0: transmitting packet "000002000011" on Router_A 3 -> Router_C, 0
+Router_C: sending routing update "000002000012" from interface 1
+Router_C: Received routing update 000002000011 from interface 0
+Router_B: Received routing update 000002000011 from interface 0
+Router_A: sending routing update "000002000021" from interface 3
+Link Router_B-1 - Router_D-0: transmitting packet "000002000012" on Router_B 1 -> Router_D, 0
+Link Router_C-1 - Router_D-1: transmitting packet "000002000012" on Router_C 1 -> Router_D, 1
+Link Router_A-2 - Router_B-0: transmitting packet "000002000021" on Router_A 2 -> Router_B, 0
+Router_B: sending routing update "000002000022" from interface 1
+Router_D: sending routing update "000002000013" from interface 0
+Router_D: sending routing update "000002000031" from interface 0
+Link Router_A-3 - Router_C-0: transmitting packet "000002000021" on Router_A 3 -> Router_C, 0
+Router_B: Received routing update 000002000021 from interface 0
+Router_C: sending routing update "000002000022" from interface 1
+Link Router_B-1 - Router_D-0: transmitting packet "000002000022" on Router_B 1 -> Router_D, 0
+Router_D: sending routing update "000002000031" from interface 1
+Router_D: sending routing update "000002000013" from interface 2
+Link Router_B-1 - Router_D-0: transmitting packet "000002000031" on Router_D 0 -> Router_B, 1
+Router_D: Received routing update 000002000012 from interface 1
+Router_D: sending routing update "000002000015" from interface 1
+Router_B: sending routing update "000002000032" from interface 0
+Link Router_C-1 - Router_D-1: transmitting packet "000002000031" on Router_D 1 -> Router_C, 1
+Router_D: sending routing update "000002000015" from interface 2
+Router_B: Received routing update 000002000031 from interface 1
+Router_D: Received routing update 000002000012 from interface 0
+Router_D: sending routing update "000002000025" from interface 1
+Link Router_D-2 - Host_3-0: transmitting packet "000002000013" on Router_D 2 -> Host_3, 0
+Host_3: received packet "000002000013"
+Link Router_A-2 - Router_B-0: transmitting packet "000002000032" on Router_B 0 -> Router_A, 2
+Link Router_B-1 - Router_D-0: transmitting packet "000002000013" on Router_D 0 -> Router_B, 1
+Router_D: sending routing update "000002000025" from interface 2
+Router_D: Received routing update 000002000022 from interface 0
+Link Router_C-1 - Router_D-1: transmitting packet "000002000015" on Router_D 1 -> Router_C, 1
+Router_B: sending routing update "000002000014" from interface 0
+Router_C: Received routing update 000002000021 from interface 0
+Link Router_D-2 - Host_3-0: transmitting packet "000002000015" on Router_D 2 -> Host_3, 0
+Host_3: received packet "000002000015"
+Router_C: sending routing update "000002000032" from interface 0
+Router_A: sending routing update "000002000033" from interface 0
+Router_C: Received routing update 000002000031 from interface 1
+Router_C: sending routing update "000002000016" from interface 0
+Link Router_A-3 - Router_C-0: transmitting packet "000002000032" on Router_C 0 -> Router_A, 3
+Router_C: Received routing update 000002000015 from interface 1
+Router_B: Received routing update 000002000013 from interface 1
+Router_A: sending routing update "000002000033" from interface 1
+Router_A: sending routing update "000002000033" from interface 3
+Router_A: Received routing update 000002000032 from interface 2
+Router_A: sending routing update "000002000035" from interface 0
+Router_A: sending routing update "000002000035" from interface 1
+Router_A: sending routing update "000002000035" from interface 2
+Router_A: Received routing update 000002000032 from interface 3
+Link Router_C-1 - Router_D-1: transmitting packet "000002000022" on Router_C 1 -> Router_D, 1
+Link Router_C-1 - Router_D-1: transmitting packet "000002000025" on Router_D 1 -> Router_C, 1
+Link Router_D-2 - Host_3-0: transmitting packet "000002000025" on Router_D 2 -> Host_3, 0
+Router_D: sending routing update "000002000023" from interface 0
+Host_3: received packet "000002000025"
+Router_C: sending routing update "000002000026" from interface 0
+Router_D: sending routing update "000002000023" from interface 2
+Router_C: Received routing update 000002000025 from interface 1
+Link Host_1-0 - Router_A-0: transmitting packet "000002000033" on Router_A 0 -> Host_1, 0
+Router_D: Received routing update 000002000022 from interface 1
+Host_1: received packet "000002000033"
+Link Host_2-0 - Router_A-1: transmitting packet "000002000033" on Router_A 1 -> Host_2, 0
+Link Router_A-2 - Router_B-0: transmitting packet "000002000035" on Router_A 2 -> Router_B, 0
+Host_2: received packet "000002000033"
+Link Router_A-2 - Router_B-0: transmitting packet "000002000014" on Router_B 0 -> Router_A, 2
+Router_B: sending routing update "000002000036" from interface 1
+Link Router_A-3 - Router_C-0: transmitting packet "000002000033" on Router_A 3 -> Router_C, 0
+Router_A: sending routing update "000002000015" from interface 0
+Router_C: sending routing update "000002000034" from interface 1
+Router_C: Received routing update 000002000033 from interface 0
+Router_A: sending routing update "000002000015" from interface 1
+Link Router_A-3 - Router_C-0: transmitting packet "000002000016" on Router_C 0 -> Router_A, 3
+Link Router_B-1 - Router_D-0: transmitting packet "000002000023" on Router_D 0 -> Router_B, 1
+Router_A: sending routing update "000002000015" from interface 3
+Link Router_C-1 - Router_D-1: transmitting packet "000002000034" on Router_C 1 -> Router_D, 1
+Router_A: Received routing update 000002000014 from interface 2
+Router_B: Received routing update 000002000035 from interface 0
+Router_B: sending routing update "000002000024" from interface 0
+Router_A: sending routing update "000002000019" from interface 0
+Link Router_D-2 - Host_3-0: transmitting packet "000002000023" on Router_D 2 -> Host_3, 0
+Router_B: Received routing update 000002000023 from interface 1
+Host_3: received packet "000002000023"
+Router_A: sending routing update "000002000019" from interface 1
+Router_D: sending routing update "000002000035" from interface 0
+Router_D: sending routing update "000002000035" from interface 2
+Router_D: Received routing update 000002000034 from interface 1
+Router_A: sending routing update "000002000019" from interface 2
+Router_A: Received routing update 000002000016 from interface 3
+Link Host_1-0 - Router_A-0: transmitting packet "000002000035" on Router_A 0 -> Host_1, 0
+Host_1: received packet "000002000035"
+Link Host_2-0 - Router_A-1: transmitting packet "000002000035" on Router_A 1 -> Host_2, 0
+Host_2: received packet "000002000035"
+Link Router_A-2 - Router_B-0: transmitting packet "000002000019" on Router_A 2 -> Router_B, 0
+Link Router_A-2 - Router_B-0: transmitting packet "000002000024" on Router_B 0 -> Router_A, 2
+Link Router_A-3 - Router_C-0: transmitting packet "000002000015" on Router_A 3 -> Router_C, 0
+Router_B: Received routing update 000002000019 from interface 0
+Router_C: Received routing update 000002000015 from interface 0
+Router_A: sending routing update "000002000025" from interface 0
+Router_A: sending routing update "000002000025" from interface 1
+Router_A: sending routing update "000002000025" from interface 3
+Router_A: Received routing update 000002000024 from interface 2
+Link Router_A-3 - Router_C-0: transmitting packet "000002000026" on Router_C 0 -> Router_A, 3
+Link Router_B-1 - Router_D-0: transmitting packet "000002000036" on Router_B 1 -> Router_D, 0
+Router_A: sending routing update "000002000029" from interface 0
+Router_A: sending routing update "000002000029" from interface 1
+Router_A: sending routing update "000002000029" from interface 2
+Router_A: Received routing update 000002000026 from interface 3
+Router_D: sending routing update "000002000039" from interface 1
+Router_D: sending routing update "000002000039" from interface 2
+Link Router_B-1 - Router_D-0: transmitting packet "000002000035" on Router_D 0 -> Router_B, 1
+Router_B: Received routing update 000002000035 from interface 1
+Router_D: Received routing update 000002000036 from interface 0
+Link Router_C-1 - Router_D-1: transmitting packet "000002000039" on Router_D 1 -> Router_C, 1
+Router_C: Received routing update 000002000039 from interface 1
+Link Router_D-2 - Host_3-0: transmitting packet "000002000035" on Router_D 2 -> Host_3, 0
+Host_3: received packet "000002000035"
+Link Host_1-0 - Router_A-0: transmitting packet "000002000015" on Router_A 0 -> Host_1, 0
+Host_1: received packet "000002000015"
+Link Host_2-0 - Router_A-1: transmitting packet "000002000015" on Router_A 1 -> Host_2, 0
+Host_2: received packet "000002000015"
+Link Router_A-2 - Router_B-0: transmitting packet "000002000029" on Router_A 2 -> Router_B, 0
+Link Router_A-3 - Router_C-0: transmitting packet "000002000025" on Router_A 3 -> Router_C, 0
+Link Router_D-2 - Host_3-0: transmitting packet "000002000039" on Router_D 2 -> Host_3, 0
+Host_3: received packet "000002000039"
+Router_B: Received routing update 000002000029 from interface 0
+Router_C: Received routing update 000002000025 from interface 0
+Link Host_1-0 - Router_A-0: transmitting packet "000002000019" on Router_A 0 -> Host_1, 0
+Host_1: received packet "000002000019"
+Link Host_2-0 - Router_A-1: transmitting packet "000002000019" on Router_A 1 -> Host_2, 0
+Host_2: received packet "000002000019"
+Link Host_1-0 - Router_A-0: transmitting packet "000002000025" on Router_A 0 -> Host_1, 0
+Link Host_2-0 - Router_A-1: transmitting packet "000002000025" on Router_A 1 -> Host_2, 0
+Host_2: received packet "000002000025"
+Host_1: received packet "000002000025"
+Link Host_1-0 - Router_A-0: transmitting packet "000002000029" on Router_A 0 -> Host_1, 0
+Host_1: received packet "000002000029"
+Link Host_2-0 - Router_A-1: transmitting packet "000002000029" on Router_A 1 -> Host_2, 0
+Host_2: received packet "000002000029"
 Host_1: sending packet "000031Sample client data 0"
-Host_3: sending packet "000011Sample server data 0"
-Link Router_D-2 - Host_3-0: transmitting packet "000011Sample server data 0" on Host_3 0 -> Router_D, 2
-Router_D: forwarding packet "000011Sample server data 0" from interface 2 to 1
 Link Host_1-0 - Router_A-0: transmitting packet "000031Sample client data 0" on Host_1 0 -> Router_A, 0
-Link Router_C-1 - Router_D-1: transmitting packet "000011Sample server data 0" on Router_D 1 -> Router_C, 1
-Router_A: forwarding packet "000031Sample client data 0" from interface 0 to 2
+Router_A: forwarding packet "000031Sample client data 0" from interface 0 to 1
 Link Router_A-2 - Router_B-0: transmitting packet "000031Sample client data 0" on Router_A 2 -> Router_B, 0
-Router_C: forwarding packet "000011Sample server data 0" from interface 1 to 0
-Link Router_A-3 - Router_C-0: transmitting packet "000011Sample server data 0" on Router_C 0 -> Router_A, 3
-Router_A: forwarding packet "000011Sample server data 0" from interface 3 to 0
 Router_B: forwarding packet "000031Sample client data 0" from interface 0 to 1
 Link Router_B-1 - Router_D-0: transmitting packet "000031Sample client data 0" on Router_B 1 -> Router_D, 0
-Router_D: forwarding packet "000031Sample client data 0" from interface 0 to 2
-Link Host_1-0 - Router_A-0: transmitting packet "000011Sample server data 0" on Router_A 0 -> Host_1, 0
-Host_1: received packet "000011Sample server data 0"
+Router_D: forwarding packet "000031Sample client data 0" from interface 0 to 1
 Link Router_D-2 - Host_3-0: transmitting packet "000031Sample client data 0" on Router_D 2 -> Host_3, 0
 Host_3: received packet "000031Sample client data 0"
+Host_3: sending packet "000011Sample Server reply"
+Link Router_D-2 - Host_3-0: transmitting packet "000011Sample Server reply" on Host_3 0 -> Router_D, 2
+Router_D: forwarding packet "000011Sample Server reply" from interface 2 to 1
+Link Router_C-1 - Router_D-1: transmitting packet "000011Sample Server reply" on Router_D 1 -> Router_C, 1
+Router_C: forwarding packet "000011Sample Server reply" from interface 1 to 0
+Link Router_A-3 - Router_C-0: transmitting packet "000011Sample Server reply" on Router_C 0 -> Router_A, 3
+Router_A: forwarding packet "000011Sample Server reply" from interface 3 to 0
+Link Host_1-0 - Router_A-0: transmitting packet "000011Sample Server reply" on Router_A 0 -> Host_1, 0
+Host_1: received packet "000011Sample Server reply"
 Router_A: routing table
         Cost To:
         1 2 3 
-From: 0 1 ~ ~ 
-      1 ~ 2 ~ 
-      2 ~ ~ 1 
-      3 ~ ~ ~ 2 
-
-Router_B: routing table
+From: 0 1 - - 
+      1 - 1 - 
+      2 - - 5 5 3 
+      3 - - 9 9 5 
+      Router_B: routing table
         Cost To:
         1 2 3 
-From: 0 1 ~ ~ 
-      0 ~ 1 ~ 
-      1 ~ ~ 2 
-
-Router_C: routing table
+From: 0 2 2 6 
+      1 - 4 4 2 
+      Router_C: routing table
         Cost To:
         1 2 3 
-From: 0 2 ~ ~ 
-      0 ~ 2 ~ 
-      1 ~ ~ 1 
-
-Router_D: routing table
+From: 0 2 2 4 
+      1 - 6 6 2 
+      Router_D: routing table
         Cost To:
         1 2 3 
-From: 0 2 ~ ~ 
-      1 ~ 1 ~ 
-      0 ~ ~ 2 
-      1 ~ ~ ~ 1 
-      2 ~ ~ ~ ~ 1 
-
-Router_A: Ending
+From: 0 5 5 9 
+      1 - 3 3 5 
+      2 - - 1 
+      Network: Ending
 Host_1: Ending
 Router_B: Ending
-Host_3: Ending
 Host_2: Ending
-Network: Ending
 Router_C: Ending
+Router_A: Ending
+Host_3: Ending
 Router_D: Ending
 All simulation threads joined
 

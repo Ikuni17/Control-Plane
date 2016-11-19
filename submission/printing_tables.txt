@@ -20,17 +20,17 @@ Router_A: routing table
         Cost To:
         1 
 From: 0 1 
-
-Router_B: routing table
+      1 
+      Router_B: routing table
         Cost To:
         2 
-From: 1 3 
-
+From: 0 - 
+      1 3 
+      Host_1: Ending
+Network: Ending
 Host_2: Ending
 Router_B: Ending
-Host_1: Ending
 Router_A: Ending
-Network: Ending
 All simulation threads joined
 
 Process finished with exit code 0

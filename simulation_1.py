@@ -24,13 +24,12 @@ if __name__ == '__main__':
     
     #create routers and routing tables for connected clients (subnets)
     router_a_rt_tbl_D = {1: {0: 1}} # packet to host 1 through interface 0 for cost 1
-    #router_a_rt_tbl_D = {1: {0: 1}, 2: {1:3}, 3:{0:1}, 4:{2:3}}
     router_a = network_1.Router(name='A',
                                 intf_cost_L=[1,1],
                                 rt_tbl_D = router_a_rt_tbl_D,
                                 max_queue_size=router_queue_size)
     object_L.append(router_a)
-    router_b_rt_tbl_D = {2: {1: 3}} # packet to host 2 through interface 1 for cost 3
+    router_b_rt_tbl_D = {2: {1: 3},} # packet to host 2 through interface 1 for cost 3
     router_b = network_1.Router(name='B',
                                 intf_cost_L=[1,3],
                                 rt_tbl_D = router_b_rt_tbl_D,
@@ -56,7 +55,9 @@ if __name__ == '__main__':
         t.start()
     
     #send out routing information from router A to router B interface 0
-    router_a.send_routes(1)
+    router_a.send_routes(1,1,1)
+    router_b.send_routes(0,2,3)
+    sleep(simulation_time)
     
     #create some send events    
     for i in range(1):

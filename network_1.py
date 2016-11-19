@@ -122,8 +122,9 @@ class Host:
     def udt_receive(self):
         pkt_S = self.intf_L[0].get('in')
         if pkt_S is not None:
+            prot_S = pkt_S[NetworkPacket.dst_addr_S_length: NetworkPacket.dst_addr_S_length + NetworkPacket.prot_S_length]
             print('%s: received packet "%s"' % (self, pkt_S))
-            if self.addr is 2:
+            if self.addr is 2 and prot_S == '1':
                 self.udt_send(1, 'Sample Server reply')
        
     ## thread target for the host to keep receiving data
@@ -138,6 +139,34 @@ class Host:
                 return
         
 
+class Message:
+    dst_addr_S_length = 5
+    cost_S_length = 1
+
+    ##@param dst_addr: address of the destination host
+    # @param data_S: packet payload
+    # @param prot_S: upper layer protocol for the packet (data, or control)
+    def __init__(self, dst_addr, cost_S):
+        self.dst_addr = dst_addr
+        self.cost_S = cost_S
+
+    ## called when printing the object
+    def __str__(self):
+        return self.to_byte_S()
+
+    ## convert packet to a byte string for transmission over links
+    def to_byte_S(self):
+        byte_S = str(self.dst_addr).zfill(self.dst_addr_S_length)
+        byte_S += str(self.cost_S)
+        return byte_S
+
+    ## extract a packet object from a byte string
+    # @param byte_S: byte string representation of the packet
+    @classmethod
+    def from_byte_S(self, byte_S):
+        dst_addr = int(byte_S[0: Message.dst_addr_S_length])
+        cost_S = int(byte_S[Message.dst_addr_S_length:])
+        return self(dst_addr, cost_S)
 
 ## Implements a multi-interface router described in class
 class Router:
@@ -183,10 +212,19 @@ class Router:
     #  @param i Incoming interface number for packet p
     def forward_packet(self, p, i):
         try:
+            cost = 100;
+            edoor = 10;
             # TODO: Here you will need to implement a lookup into the 
             # forwarding table to find the appropriate outgoing interface
             # for now we assume the outgoing interface is (i+1)%2
-            self.intf_L[(i+1)%2].put(p.to_byte_S(), 'out', True)
+            for key in self.rt_tbl_D:
+                if key == p.dst_addr:
+                    for subkey in self.rt_tbl_D[key]:
+                        if self.rt_tbl_D[key][subkey] < cost:
+                            cost = self.rt_tbl_D[key][subkey];
+                            edoor = subkey;
+            self.intf_L[edoor].put(p.to_byte_S(), 'out', True)
+            #self.intf_L[(i + 1) % 2].put(p.to_byte_S(), 'out', True)
             print('%s: forwarding packet "%s" from interface %d to %d' % (self, p, i, (i+1)%2))
         except queue.Full:
             print('%s: packet "%s" lost on interface %d' % (self, p, i))
@@ -195,15 +233,45 @@ class Router:
     ## forward the packet according to the routing table
     #  @param p Packet containing routing information
     def update_routes(self, p, i):
+        foundD = 0
+        foundI = 0
+        inter = 0
         #TODO: add logic to update the routing tables and
         # possibly send out routing updates
+        nString = p.to_byte_S()
+        n = nString[p.dst_addr_S_length+p.prot_S_length:]
+        m = Message.from_byte_S(n)
+        for key in self.rt_tbl_D:
+            if key == m.dst_addr:
+                foundD = 1
+                for subkey in self.rt_tbl_D[key]:
+                    if subkey == i:
+                        foundI = 1
+                        if m.cost_S + self.intf_L[i].cost < self.rt_tbl_D[key][subkey]:
+                            self.rt_tbl_D[key][subkey] = m.cost_S + self.intf_L[i].cost
+                            for  x in range(len(self.intf_L)):
+                                if x != i:
+                                    self.send_routes(x,m.dst_addr,self.rt_tbl_D[key][subkey])
+                if foundI == 0:
+                    self.rt_tbl_D[key].update({i:(m.cost_S + self.intf_L[i].cost)})
+                    for x in range(len(self.intf_L)):
+                        if x != i:
+                            self.send_routes(x, key, self.rt_tbl_D[key][i])
+        if foundD == 0:
+            self.rt_tbl_D.update({m.dst_addr: {i:(m.cost_S + self.intf_L[i].cost)}})
+            for x in range(len(self.intf_L)):
+                if x != i:
+                    self.send_routes(x, m.dst_addr, self.rt_tbl_D[m.dst_addr][i])
+
         print('%s: Received routing update %s from interface %d' % (self, p, i))
         
     ## send out route update
     # @param i Interface number on which to send out a routing update
-    def send_routes(self, i):
+    def send_routes(self, i, d, c):
         # a sample route update packet
-        p = NetworkPacket(0, 'control', 'Sample routing table packet')
+        m = Message(d,c)
+        mString = m.to_byte_S()
+        p = NetworkPacket(0, 'control', mString)
         try:
             #TODO: add logic to send out a route update
             print('%s: sending routing update "%s" from interface %d' % (self, p, i))
@@ -215,42 +283,46 @@ class Router:
     ## Print routing table
     def print_routes(self):
         # Tables are structured as {Destination : {Interface : Cost}}
+        # First index is interface, then each interface has a list of costs
+        rows = [[] for j in range(len(self.intf_L))]
+        # Create a list of costs for each interface
+        for keys in self.rt_tbl_D:
+            for sub_keys in self.rt_tbl_D[keys]:
+                rows[sub_keys].append(self.rt_tbl_D[keys][sub_keys])
         print('%s: routing table' % self)
         print('{:>16}'.format("Cost To:"))
         # Print all destinations in a row
         print('{:>8}'.format(""), end="")
         count = -1
         for destination in self.rt_tbl_D:
-            #print('{:<3}'.format(destination), end=" ")
             print(destination, end=" ")
-            count = count + 1
+            count += 1
         print()
         print("From:", end=" ")
-        count2=0
-        for key in self.rt_tbl_D:
-            for sub_key in self.rt_tbl_D[key]:
-                if count2 is 0:
-                    print(str(sub_key) + " " + str(self.rt_tbl_D[key][sub_key]), end=" ")
-                    for i in range(count):
-                        print("~", end=" ")
-                    print()
-                    count = count - 1
-                    count2 = count2 + 1
-                else:
-                    print('{:>6}'.format(""), end="")
-                    print(sub_key, end=" ")
-                    for i in range(count2):
-                        print("~", end=" ")
-                    print(self.rt_tbl_D[key][sub_key], end=" ")
-                    for i in range(count):
-                        print("~", end=" ")
-                    print()
-                    count = count - 1
-                    count2 = count2 + 1
-
-
-        print()
-
+        # Print the information in rows
+        for interface in range(len(rows)):
+            # Print the interface number at the beginning of the row
+            print(interface, end=" ")
+            # num_char keeps track of the amount of characters printed in a given row
+            num_char = 0
+            # Add leading characters if necessary
+            while num_char < interface:
+                if num_char < count:
+                    print("-", end=" ")
+                num_char += 1
+            # Print the costs that were added to rows
+            for m in range(len(rows[interface])):
+                print(rows[interface][m], end=" ")
+                num_char += 1
+            # Add trailing characters if necessary
+            while num_char <= count:
+                print("-", end=" ")
+                num_char += 1
+            # Go to next line and add whitespace
+            print()
+            print('{:>6}'.format(""), end="")
+        
+                
     ## thread target for the host to keep forwarding data
     def run(self):
         print (threading.currentThread().getName() + ': Starting')
