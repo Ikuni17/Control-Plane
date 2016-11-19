@@ -25,7 +25,7 @@ if __name__ == '__main__':
     object_L.append(server)
 
     # create routers and routing tables for connected clients (subnets)
-    router_a_rt_tbl_D = {1: {0: 1}, 2: {1: 2}, 3: {2: 1}}
+    router_a_rt_tbl_D = {1: {0: 1}, 2: {1: 2}, 3: {2: 1, 3: 2}}
     router_a = network_2.Router(name='A',
                                 intf_cost_L=[1, 2, 1, 2],
                                 rt_tbl_D=router_a_rt_tbl_D,
@@ -44,7 +44,7 @@ if __name__ == '__main__':
                                 rt_tbl_D=router_c_rt_tbl_D,
                                 max_queue_size=router_queue_size)
     object_L.append(router_c)
-    router_d_rt_tbl_D = {1: {1: 1}, 2: {1: 1}, 3: {2: 1}}
+    router_d_rt_tbl_D = {1: {0: 2, 1: 1}, 2: {0: 2, 1: 1}, 3: {2: 1}}
     router_d = network_2.Router(name='D',
                                 intf_cost_L=[2, 1, 1],
                                 rt_tbl_D=router_d_rt_tbl_D,
@@ -73,7 +73,7 @@ if __name__ == '__main__':
         t.start()
 
     # send out routing information from router A to router B interface 0
-    router_a.send_routes(1)
+    # router_a.send_routes(1)
 
     # print(list(router_a_rt_tbl_D[1])[0])
     # create some send events

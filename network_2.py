@@ -180,8 +180,17 @@ class Router:
     #  @param p Packet to forward
     #  @param i Incoming interface number for packet p
     def forward_packet(self, p, i):
+        # Make initial cost infinity so we always have at least one path
+        cost = float("inf")
         try:
-            forwarding_intf = list(self.rt_tbl_D[p.dst_addr])[0]
+            # Get the routing table for the destination address
+            intf_D = self.rt_tbl_D[p.dst_addr]
+            # Loop through the interfaces to find the least cost interface and store it
+            for interface in intf_D:
+                if intf_D[interface] < cost:
+                    cost = intf_D[interface]
+                    forwarding_intf = interface
+            # Put the packet on the correct interface
             self.intf_L[forwarding_intf].put(p.to_byte_S(), 'out', True)
             print('%s: forwarding packet "%s" from interface %d to %d' % (self, p, i, forwarding_intf))
         except queue.Full:
